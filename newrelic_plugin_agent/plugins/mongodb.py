@@ -209,6 +209,10 @@ class MongoDB(base.Plugin):
         client = self.connect()
         if not client:
             return
+
+        if len(databases) is 0:
+            databases = client.database_names()
+
         for database in databases:
             LOGGER.debug('Collecting stats for %s', database)
             db = client[database]
